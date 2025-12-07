@@ -8,7 +8,10 @@
 #define LED_PIN_4 4
 #define LED_PIN_5 5
 #define LED_PIN_6 6
+#define LED_PIN_8 8
 
+
+int leds[2] = {LED_PIN_5, LED_PIN_8};
 
 // int leds[3] = {LED_PIN_1, LED_PIN_2, LED_PIN_3};
 
@@ -19,13 +22,20 @@
 // int totalGameSteps = sizeof(gameLedSequence);
 
 void setup() {
+
+
+
   Serial.begin(9600);
   Serial.println("Lightboard Testm123");
-  // pinMode(SWITCH_PIN, INPUT_PULLUP);  // Switch with internal pull-up
+  pinMode(SWITCH_PIN, INPUT);  // Switch with internal pull-up
 
-  //   for (int i = 0; i < (int)(sizeof(leds) / sizeof(leds[0])); i++) {
-  //        pinMode(leds[i], OUTPUT);
-  // }
+    for (int i = 0; i < (int)(sizeof(leds) / sizeof(leds[0])); i++) {
+         pinMode(leds[i], OUTPUT);
+  }
+    // pinMode(5, OUTPUT);  // LED pin as output
+    // pinMode(8, OUTPUT);  // LED pin as output
+  digitalWrite(5, HIGH);   // LED ON
+
 
     // int targetLedPin = gameLedSequence[currentGameIndex];
     //   Serial.println("Lightboard Testm123");
@@ -88,11 +98,24 @@ void setup() {
 
 
 
-
-
 void loop() {
-  digitalWrite(3, HIGH);   // LED ON
-  delay(1000);             // Wait 1 second
-  digitalWrite(3, LOW);    // LED OFF
-  delay(1000);             // Wait 1 second
+
+  int switchState = digitalRead(SWITCH_PIN);
+    if (switchState == HIGH) {                   // Button pressed
+      Serial.print("SWITCH STATE HIGH");
+      // delay(1000); // wait for 5 seconds
+    digitalWrite(5, LOW);              // Turn bulb ON
+          // delay(1000); // wait for 5 seconds
+    digitalWrite(8, HIGH);              // Turn bulb ON
+    }
+
+  // digitalWrite(5, HIGH);   // LED ON
+  // delay(1000);             // Wait 1 second
+  // digitalWrite(5, LOW);    // LED OFF
+  // delay(1000);             // Wait 1 second
+
+  //   digitalWrite(8, HIGH);   // LED ON
+  // delay(1000);             // Wait 1 second
+  // digitalWrite(8, LOW);    // LED OFF
+  // delay(1000);             // Wait 1 second
 }
